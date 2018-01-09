@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.avenue.ProductView;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Product implements Serializable {
@@ -21,17 +24,23 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(ProductView.RelationList.class)
 	private Long id;
 
 	@NotNull
+	@JsonView(ProductView.RelationList.class)
 	private String name;
 
+	@JsonView(ProductView.RelationList.class)
 	private String description;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonView(ProductView.RelationList.class)
 	private Product parentProduct;
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonView(ProductView.RelationList.class)
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Set<Image> images;
 
 	public Long getId() {
