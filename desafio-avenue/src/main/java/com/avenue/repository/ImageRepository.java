@@ -8,5 +8,7 @@ import com.avenue.model.Image;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
 
-	public Set<Image> findById(Long id);
+	public Image findById(Long id);
+
+	public Set<Image> findByProduct(Long productId);
 }
