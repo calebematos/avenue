@@ -1,4 +1,4 @@
-package com.avenue.controller;
+package com.avenue.resource;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DELETE;
@@ -15,14 +15,14 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.avenue.event.NewRecourseEvent;
+import com.avenue.event.NewResourceEvent;
 import com.avenue.model.Product;
 import com.avenue.service.ProductService;
 
 @Component
 @Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
-public class ProductController {
+public class ProductResource {
 
 	@Autowired
 	private ProductService productService;
@@ -34,7 +34,7 @@ public class ProductController {
 	@Transactional
 	public Response createProduct(Product product, HttpServletResponse response) {
 		Product newProduct = productService.createNewProduct(product);
-		publisher.publishEvent(new NewRecourseEvent(this, response, newProduct.getId()));
+		publisher.publishEvent(new NewResourceEvent(this, response, newProduct.getId()));
 		return Response.status(Status.CREATED).build();
 	}
 

@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationListener;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.avenue.event.NewRecourseEvent;
+import com.avenue.event.NewResourceEvent;
 
-public class NewRecourseListener implements ApplicationListener<NewRecourseEvent>{
+public class NewResourceListener implements ApplicationListener<NewResourceEvent>{
 
 	@Override
-	public void onApplicationEvent(NewRecourseEvent event) {
+	public void onApplicationEvent(NewResourceEvent event) {
 		
 		HttpServletResponse response = event.getResponse();
 		Long code = event.getCode();
