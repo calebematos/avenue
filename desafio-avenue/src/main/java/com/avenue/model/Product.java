@@ -1,7 +1,6 @@
 package com.avenue.model;
 
-import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,37 +10,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.avenue.ProductView;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
-public class Product implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@Table(name = "product")
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonView(ProductView.RelationList.class)
 	private Long id;
 
 	@NotNull
-	@JsonView(ProductView.RelationList.class)
 	private String name;
 
-	@JsonView(ProductView.RelationList.class)
 	private String description;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonView(ProductView.RelationList.class)
-	private Product parentProduct;
+	private List<Product> parentProduct;
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JsonView(ProductView.RelationList.class)
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	private Set<Image> images;
+	private List<Image> images;
 
 	public Long getId() {
 		return id;
@@ -67,19 +59,19 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 
-	public Product getParentProduct() {
+	public List<Product> getParentProduct() {
 		return parentProduct;
 	}
 
-	public void setParentProduct(Product parentProduct) {
+	public void setParentProduct(List<Product> parentProduct) {
 		this.parentProduct = parentProduct;
 	}
 
-	public Set<Image> getImages() {
+	public List<Image> getImages() {
 		return images;
 	}
 
-	public void setImages(Set<Image> images) {
+	public void setImages(List<Image> images) {
 		this.images = images;
 	}
 
