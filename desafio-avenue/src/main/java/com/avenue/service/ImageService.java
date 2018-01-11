@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
@@ -48,7 +49,9 @@ public class ImageService {
 	}
 
 	public void remove(Long imageId) {
-		imageRepository.delete(imageId);
+		Image image = imageRepository.findById(imageId);
+		if(image != null)
+			imageRepository.delete(imageId);
 	}
 
 	private String saveImageInFolder(File path, InputStream upload, String name) throws IOException {
@@ -67,6 +70,10 @@ public class ImageService {
 			path.mkdir();
 
 		return path;
+	}
+
+	public List<Image> getAllImages() {
+		return imageRepository.findAll();
 	}
 
 }

@@ -1,10 +1,12 @@
 package com.avenue.resource;
 
 import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -49,16 +51,6 @@ public class ImageResource {
 		return Response.status(Status.BAD_REQUEST).build();
 	}
 
-	@Path("/upload")
-	@POST
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile(@FormDataParam("file") InputStream file,
-			@FormDataParam("file") FormDataContentDisposition fileDetail) {
-		System.out.println("teste");
-
-		return null;
-	}
-
 	@PUT
 	@Transactional
 	@Path("/{id}")
@@ -73,6 +65,12 @@ public class ImageResource {
 	public Response deleteProduct(@PathParam("id") Long imageId) {
 		imageService.remove(imageId);
 		return Response.noContent().build();
+	}
+	
+	@GET
+	public Response getAllImages() {
+		List<Image> images = imageService.getAllImages();
+		return Response.ok(images).build();
 	}
 
 }
