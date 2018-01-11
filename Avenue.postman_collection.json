@@ -1,0 +1,184 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Avenue",
+		"_postman_id": "585ee91b-9d0f-6c30-cd68-9cbb779c0784",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Save products",
+			"request": {
+				"url": "localhost:8080/avenue/products",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\" : \"Console\",\r\n\"description\" : \"Console players\",\r\n\"parentProducts\" : [\r\n      {\r\n        \"name\" : \"PS2\",\r\n        \"description\" : \"PS2 console\"\r\n      },\r\n      {\r\n        \"name\" : \"PS3\",\r\n        \"description\" : \"PS3 console\"\r\n      },\r\n      {\r\n        \"name\" : \"PS4\",\r\n        \"description\" : \"PS4 console\"\r\n      },\r\n      {\r\n        \"name\" : \"Xbox 360\",\r\n        \"description\" : \"Xbox 360 console\"\r\n      },\r\n      {\r\n        \"name\" : \"Xbox one\",\r\n        \"description\" : \"Xbox one console\"\r\n      }\r\n    ]\r\n}"
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Update products",
+			"request": {
+				"url": "localhost:8080/avenue/products/2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"name\": \"PS2\",\n    \"description\": \"PS2 consolesss\",\n    \"parentProducts\": [],\n    \"images\" : { \"id\": 1,\n        \"name\": \"20180108215029_219.png\",\n        \"path\": \"C:\\\\temp\\\\20180108215029_218.png\"}\n}"
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Save images",
+			"request": {
+				"url": "localhost:8080/avenue/images",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"value": "",
+							"type": "file"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all images",
+			"request": {
+				"url": "localhost:8080/avenue/images",
+				"method": "GET",
+				"header": [],
+				"body": {}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete image",
+			"request": {
+				"url": "localhost:8080/avenue/images/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"id\": 1,\n        \"name\": \"20180108215029_218.png\",\n        \"path\": \"C:\\\\temp\\\\20180108215029_218.png\",\n        \"product\": 1\n  }"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"url": "localhost:8080/avenue/products/2",
+				"method": "DELETE",
+				"header": [],
+				"body": {}
+			},
+			"response": []
+		},
+		{
+			"name": "Update image",
+			"request": {
+				"url": "localhost:8080/avenue/images/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"id\": 1,\n        \"name\": \"20180108215029_219.png\",\n        \"path\": \"C:\\\\temp\\\\20180108215029_218.png\",\n        \"product\": { \"id\": 1,\n              \"name\": \"Console\",\n              \"description\": \"Console players\"}\n    }"
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Get all products",
+			"request": {
+				"url": "localhost:8080/avenue/products",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\" : \"Console\",\r\n\"description\" : \"Console players\",\r\n\"parentProducts\" : [\r\n      {\r\n        \"name\" : \"PS2\",\r\n        \"description\" : \"PS2 console\"\r\n      },\r\n      {\r\n        \"name\" : \"PS3\",\r\n        \"description\" : \"PS3 console\"\r\n      },\r\n      {\r\n        \"name\" : \"PS4\",\r\n        \"description\" : \"PS4 console\"\r\n      },\r\n      {\r\n        \"name\" : \"Xbox 360\",\r\n        \"description\" : \"Xbox 360 console\"\r\n      },\r\n      {\r\n        \"name\" : \"Xbox one\",\r\n        \"description\" : \"Xbox one console\"\r\n      }\r\n    ]\r\n}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get only child from products",
+			"request": {
+				"url": "localhost:8080/avenue/products/childs/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\" : \"Console\",\r\n\"description\" : \"Console players\",\r\n\"parentProducts\" : [\r\n      {\r\n        \"name\" : \"PS2\",\r\n        \"description\" : \"PS2 console\"\r\n      },\r\n      {\r\n        \"name\" : \"PS3\",\r\n        \"description\" : \"PS3 console\"\r\n      },\r\n      {\r\n        \"name\" : \"PS4\",\r\n        \"description\" : \"PS4 console\"\r\n      },\r\n      {\r\n        \"name\" : \"Xbox 360\",\r\n        \"description\" : \"Xbox 360 console\"\r\n      },\r\n      {\r\n        \"name\" : \"Xbox one\",\r\n        \"description\" : \"Xbox one console\"\r\n      }\r\n    ]\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get products without child",
+			"request": {
+				"url": "localhost:8080/avenue/products/only",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\" : \"Console\",\r\n\"description\" : \"Console players\",\r\n\"parentProducts\" : [\r\n      {\r\n        \"name\" : \"PS2\",\r\n        \"description\" : \"PS2 console\"\r\n      },\r\n      {\r\n        \"name\" : \"PS3\",\r\n        \"description\" : \"PS3 console\"\r\n      },\r\n      {\r\n        \"name\" : \"PS4\",\r\n        \"description\" : \"PS4 console\"\r\n      },\r\n      {\r\n        \"name\" : \"Xbox 360\",\r\n        \"description\" : \"Xbox 360 console\"\r\n      },\r\n      {\r\n        \"name\" : \"Xbox one\",\r\n        \"description\" : \"Xbox one console\"\r\n      }\r\n    ]\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
