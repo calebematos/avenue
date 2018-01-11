@@ -1,4 +1,4 @@
-I use POSTMAN to access the API.
+I use POSTMAN to access the API and i recommend that you import the file Avenue.postman_collection.json into it.
 
 http://localhost:8080/h2-console
 jdbc URL : jdbc:h2:mem:testdb
@@ -36,13 +36,21 @@ POST localhost:8080/avenue/products
 }
 
 PUT localhost:8080/avenue/products/{id}
-
+{
+    "id" : 1
+    "name" : "Consoles",
+    "description" : "Console players",
+}
 
 DELETE localhost:8080/avenue/products/{id}
 
 2) Create, update and delete images
+POST localhost:8080/avenue/images
+    * set the option to form-data. set key as 'file' and value as file, then select the image.
 
+PUT localhost:8080/avenue/images/{id}
 
+DELETE localhost:8080/avenue/images/{id}
 
 3) Get all products excluding relationships (child products, images) 
 GET localhost:8080/avenue/products/only
