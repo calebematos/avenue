@@ -4,7 +4,7 @@ http://localhost:8080/h2-console
 jdbc URL : jdbc:h2:mem:testdb
 
 1) Create, update and delete products
-Change to POST. On the tab Body, set the body as 'raw'.
+Change to POST. On the tab Body, set the body as 'raw' and select JSON (application/json).
 
 POST localhost:8080/avenue/products
 {

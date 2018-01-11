@@ -20,8 +20,8 @@ public class ProductService {
 
 	public Product createNewProduct(Product product) {
 		Product parentProduct = productRepository.save(product);
-		if(!product.getParentProducts().isEmpty()) {
-			for(Product p : product.getParentProducts()) {
+		if (!product.getParentProducts().isEmpty()) {
+			for (Product p : product.getParentProducts()) {
 				p.setParentProduct(parentProduct);
 				productRepository.save(p);
 			}
@@ -36,7 +36,9 @@ public class ProductService {
 	}
 
 	public void remove(Long productId) {
-		productRepository.delete(productId);
+		Product product = productRepository.findById(productId);
+		if (product != null)
+			productRepository.delete(productId);
 	}
 
 	public List<ProductResumed> getOnlyProducts() {
