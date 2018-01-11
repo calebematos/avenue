@@ -1,3 +1,9 @@
+To run the application simply use maven and run the command:
+mvn spring-boot:run
+
+To run the tests you can also use maven, simply run the command:
+mvn test
+
 I use POSTMAN to access the API and i recommend that you import the file Avenue.postman_collection.json into it.
 
 http://localhost:8080/h2-console
