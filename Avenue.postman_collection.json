@@ -50,12 +50,7 @@
 			"request": {
 				"url": "localhost:8080/avenue/images",
 				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/x-www-form-urlencoded"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
