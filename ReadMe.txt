@@ -6,8 +6,8 @@ mvn test
 
 I use POSTMAN to access the API and i recommend that you import the file Avenue.postman_collection.json into it.
 
-http://localhost:8080/h2-console
-jdbc URL : jdbc:h2:mem:testdb
+To access daba base use http://localhost:8080/h2-console
+And set jdbc URL : jdbc:h2:mem:testdb
 
 1) Create, update and delete products
 Change to POST. On the tab Body, set the body as 'raw' and select JSON (application/json).
