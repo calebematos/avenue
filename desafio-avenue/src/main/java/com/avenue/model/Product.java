@@ -1,5 +1,7 @@
 package com.avenue.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,16 +10,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +35,14 @@ public class Product {
 	private String description;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private List<Product> parentProduct;
+	@JoinColumn(name = "parent_product_id")
+	private Product parentProduct;
+
+	@OneToMany(mappedBy = "parentProduct", fetch = FetchType.EAGER)
+	private List<Product> parentProducts = new ArrayList<>();
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonIgnore
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<Image> images;
 
@@ -59,20 +70,29 @@ public class Product {
 		this.description = description;
 	}
 
-	public List<Product> getParentProduct() {
-		return parentProduct;
-	}
-
-	public void setParentProduct(List<Product> parentProduct) {
-		this.parentProduct = parentProduct;
-	}
-
 	public List<Image> getImages() {
 		return images;
 	}
 
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+	
+	@JsonIgnore
+	public Product getParentProduct() {
+		return parentProduct;
+	}
+
+	public void setParentProduct(Product parentProduct) {
+		this.parentProduct = parentProduct;
+	}
+
+	public List<Product> getParentProducts() {
+		return parentProducts;
+	}
+
+	public void setParentProducts(List<Product> parentProducts) {
+		this.parentProducts = parentProducts;
 	}
 
 	@Override
@@ -99,5 +119,4 @@ public class Product {
 			return false;
 		return true;
 	}
-
 }

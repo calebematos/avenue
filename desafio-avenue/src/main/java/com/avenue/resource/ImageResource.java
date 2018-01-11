@@ -1,6 +1,9 @@
 package com.avenue.resource;
 
+import java.io.InputStream;
+
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -12,12 +15,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.avenue.event.NewResourceEvent;
 import com.avenue.model.Image;
@@ -35,14 +38,25 @@ public class ImageResource {
 	private ApplicationEventPublisher publisher;
 
 	@POST
-	@Transactional
-	public Response saveImage(@RequestParam("file") MultipartFile upload, @Context HttpServletResponse response) {
-		Image newImage = imageService.saveImage(upload);
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response saveImage(@FormDataParam("file") InputStream file,
+			@FormDataParam("file") FormDataContentDisposition fileDetail, @Context HttpServletResponse response) {
+		Image newImage = imageService.saveImage(file, fileDetail);
 		if (newImage != null) {
 			publisher.publishEvent(new NewResourceEvent(this, response, newImage.getId()));
 			return Response.status(Status.CREATED).build();
 		}
 		return Response.status(Status.BAD_REQUEST).build();
+	}
+
+	@Path("/upload")
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response uploadFile(@FormDataParam("file") InputStream file,
+			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+		System.out.println("teste");
+
+		return null;
 	}
 
 	@PUT

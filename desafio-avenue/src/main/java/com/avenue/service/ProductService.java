@@ -19,7 +19,14 @@ public class ProductService {
 	private ProductRepository productRepository;
 
 	public Product createNewProduct(Product product) {
-		return productRepository.save(product);
+		Product parentProduct = productRepository.save(product);
+		if(!product.getParentProducts().isEmpty()) {
+			for(Product p : product.getParentProducts()) {
+				p.setParentProduct(parentProduct);
+				productRepository.save(p);
+			}
+		}
+		return parentProduct;
 	}
 
 	public Product updateProduct(Long productId, Product product) {
@@ -54,7 +61,7 @@ public class ProductService {
 	}
 
 	public List<Product> getAllProducts() {
-		return productRepository.findAll();
+		return productRepository.findProductsWithoutChild();
 	}
 
 	public Product getProductById(Long productId) {
@@ -63,10 +70,7 @@ public class ProductService {
 
 	public List<Product> getChildFromProductId(Long productId) {
 		Product product = productRepository.findById(productId);
-		if (product != null && !product.getParentProduct().isEmpty()) {
-			return product.getParentProduct();
-		}
-		return null;
+		return productRepository.findByParentProduct(product);
 	}
 
 	public List<Image> getImagesFromProductId(Long productId) {
